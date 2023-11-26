@@ -1,0 +1,41 @@
+[
+  {
+	"$type": "OtomeGameScriptCreator.Panels.TextPanel, OtomeGameScriptCreator",
+	"panelNumber": 0,
+	"mainText": "Hello my friend. How are you doing on this fine day?",
+	"nextPanel": 1,
+	"characterNumber": 1,
+	"character": "necromancer",
+	"secondCharacter": "necromancer",
+	"expression": "neutral",
+	"secondExpression": "neutral",
+	"background": "countryside",
+	"type": "text"
+  },
+  {
+	"$type": "OtomeGameScriptCreator.Panels.TextPanel, OtomeGameScriptCreator",
+	"panelNumber": 1,
+	"mainText": "My name is of no concern to you",
+	"nextPanel": 2,
+	"characterNumber": 1,
+	"character": "necromancer",
+	"secondCharacter": "necromancer",
+	"expression": "neutral",
+	"secondExpression": "neutral",
+	"background": "countryside",
+	"type": "text"
+  },
+  {
+	"$type": "OtomeGameScriptCreator.Panels.TextPanel, OtomeGameScriptCreator",
+	"panelNumber": 2,
+	"mainText": "This is my good friend the other guy.",
+	"nextPanel": 3,
+	"characterNumber": 2,
+	"character": "necromancer",
+	"secondCharacter": "necromancer",
+	"expression": "neutral",
+	"secondExpression": "neutral",
+	"background": "countryside",
+	"type": "text"
+  }
+]

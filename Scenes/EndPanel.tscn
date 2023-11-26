@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cf3pcb2bqbcxl"]
+
+[node name="CanvasGroup" type="CanvasGroup"]
+
+[node name="Character" type="Sprite2D" parent="."]
+position = Vector2(600, 296)
+
+[node name="SecondCharacter" type="Sprite2D" parent="."]
+position = Vector2(280, 280)
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(600, 296)
