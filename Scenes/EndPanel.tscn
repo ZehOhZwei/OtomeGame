@@ -2,6 +2,12 @@
 
 [node name="CanvasGroup" type="CanvasGroup"]
 
+[node name="MainText" type="RichTextLabel" parent="."]
+offset_top = 576.0
+offset_right = 1152.0
+offset_bottom = 648.0
+bbcode_enabled = true
+
 [node name="Character" type="Sprite2D" parent="."]
 position = Vector2(600, 296)
 
