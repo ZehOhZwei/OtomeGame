@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -10,26 +11,47 @@ public partial class Main : Node2D
 	private PackedScene textPanel;
 	private PackedScene choicePanel;
 	private PackedScene endPanel;
+	private List<CanvasGroup> panels;
+
+	private string initFile = "testscript.txt";
+
 
 	public override void _Input(InputEvent @event)
 	{
 		if(@event.IsActionPressed("next"))
 		{
-			nextChapter();
+			NextPanel();
 		}
 	}
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		string json = File.ReadAllText("Textfiles/testscript.txt");
-		panelDefinitions = JsonSerializer.Deserialize<List<Panel>>(json);
-
 		textPanel = (PackedScene)ResourceLoader.Load("res://Scenes/TextPanel.tscn");
 		choicePanel = (PackedScene)ResourceLoader.Load("res://Scenes/ChoicePanel.tscn");
 		endPanel = (PackedScene)ResourceLoader.Load("res://Scenes/EndPanel.tscn");
 
-		var panels = new List<CanvasGroup>();
+		newChapter(initFile);
+	}
+
+	private void NextPanel()
+	{
+		panels[getNextActivePanel() + 1].Show();
+		panels[getNextActivePanel()].Hide();
+	}
+
+	private void nextChapter()
+	{
+		EndPanel endPanel = (EndPanel)panelDefinitions[-1];
+		newChapter(endPanel.nextChapter);
+	}
+
+	private void newChapter(string chapterFile)
+	{
+		string json = File.ReadAllText("Textfiles/" + chapterFile);
+		panelDefinitions = JsonSerializer.Deserialize<List<Panel>>(json);
+
+		panels = new List<CanvasGroup>();
 		foreach (var panel in panelDefinitions)
 		{
 			CanvasGroup newPanel;
@@ -69,28 +91,26 @@ public partial class Main : Node2D
 			if(panel.characterNumber == 2)
 			{
 				newPanel.GetChild<Sprite2D>(-2).Texture = ResourceLoader.Load<Texture2D>("res://Textures/Characters/" + panel.secondCharacter + "/" + panel.secondExpression + ".png");
-				newPanel.GetChild<Sprite2D>(-3).MoveLocalX(-100);
+				newPanel.GetChild<Sprite2D>(-3).MoveLocalX(200);
 			}         
 			newPanel.GetChild<Sprite2D>(-1).Texture = ResourceLoader.Load<Texture2D>("res://Textures/Backgrounds/" + panel.background + ".jpg");
 			newPanel.Hide();
 			panels.Add(newPanel);
 			AddChild(newPanel);
 		}
-
-
-		GD.Print(panelDefinitions.ToArray()[0].character);
-		PrintTree();
 		panels[0].Show();
 	}
 
-	private void NextPanel()
+	private int getNextActivePanel()
 	{
-		GD.Print("next");
-	}
-
-	public void nextChapter()
-	{
-
+		for(int i = 0; i <= panels.Count; i++)
+		{
+			if(panels[i].Visible.Equals(true))
+			{
+				return i;
+			}
+		}
+		return 1;
 	}
 }
 
